@@ -1,0 +1,268 @@
+---
+title: "basic_function_in_R"
+author: "Maaz AHmad"
+format: html
+---
+
+# Basic function in R
+
+In this Document, we will discuss basic function of R which are very important for every task that you performed in Rstudio.
+
+-   Data types
+
+-   Data structure
+
+-   Playing with data_frame
+
+First we will start with data types, there are four data types
+
+## Numeric
+
+In R, the numeric data type refers to real numbers, which can be either positive or negative and can have decimal places.
+
+```{r}
+#| echo: true
+#| message: true
+#| warning: true
+a<-2
+print(a) #to run the command press ctrl+enter
+b<-3.4
+print(b)
+c<-2/4 #/ sign shows division
+print(c)
+```
+
+To find the the data type of 2, the following command will use;
+
+```{r}
+class(a)
+class(b)
+class(c)
+```
+
+## Integer
+
+Integers are whole numbers (without decimal places). In R, you can explicitly define a variable as an integer by adding an `L` after the number.
+
+```{r}
+d<- 5L
+print(d)
+```
+
+Adding the `L` tells R that this value is an integer rather than a numeric (which is typically a floating-point number).
+
+```{r}
+class(d)
+```
+
+You can convert a numeric value to an integer using the `as.integer()` function.
+
+```{r}
+e<-3.4
+d<-as.integer(e)
+class(d)
+```
+
+Note that when converting from numeric to integer, R shorten the decimal part.
+
+```{r}
+f<-2L
+g<-as.numeric(f)
+class(g)
+```
+
+## Logical
+
+The logical data type represents `TRUE` or `FALSE` values. Logical values are particularly useful when performing comparisons, controlling the flow of a program, or subsetting data frames.
+
+```{r}
+h<-2<3
+print(h)
+```
+
+```{r}
+j<-4>9
+print(j)
+```
+
+```{r}
+k<-101==101
+print(k)
+```
+
+```{r}
+l<-50!=50
+print(l)
+```
+
+### Logical Operations
+
+You can perform logical operations such as AND (`&`), OR (`|`), and NOT (`!`).
+
+```{r}
+m<-TRUE
+n<- FALSE
+#AND
+print(m&n)
+#OR
+print(m|n)
+#NOT
+print(!m&n)
+print(m&!n)
+print(!m)
+```
+
+## Character
+
+The character data type is used to store text or strings. Character values must be enclosed in either single (`'`) or double (`"`) quotation marks.
+
+```{r}
+test1<-"you can do it"
+print(test1)
+```
+
+```{r}
+class(test1)
+```
+
+Characters can be concatenated using the `paste()` function
+
+```{r}
+first<-"welocme"
+second<-"to"
+third<-"learning"
+fourth<-"R language"
+paste(first,second,third,fourth)
+```
+
+`paste0()` is a special version of `paste()` that does not automatically insert a space between each character being concatenated.
+
+```{r}
+paste0(first,second,third,fourth)
+```
+
+```{r}
+x <- "I am learning R" == "IamlearningR"
+y <- 100/2 == 50
+z <- 19 != 18
+
+print(x & z)     # Your written response here
+print(x & y)      # Your written response here
+print(y | z)      # Your written response here
+print(x | y)      # Your written response here
+print(x & y & z)  # Your written response here
+print(x | y | z)  # Your written response here
+print(x & !y & z) # Your written response here
+print(x | !z)     # Your written response here
+print(x & !z)     # Your written response here
+print(x & !y)
+```
+
+# Data Structures
+
+## Vectors
+
+A vector is a sequence of elements of the same data type. It can be a sequence of numbers, characters, or logical values. Vectors are created using the `c()` function.
+
+```{r}
+#Numeric vector
+num <- c(11,12,13,14,15)
+#character vector
+char <- c("hello","How","are","you")
+#logical vector
+logi_vec<- c(TRUE,FALSE,TRUE)
+
+```
+
+Vectors are one of the most commonly used data structures in R. You can access elements of a vector using square brackets.
+
+```{r}
+num[2:4]
+num[c(2,4)]
+
+char[2:3]
+char[c(2:4)]
+
+logi_vec[2]
+logi_vec[2:3]
+```
+
+## Matrices
+
+A matrix is a two-dimensional collection of elements of the same data type. You can think of it as a table with rows and columns. You can create a matrix using the `matrix()` function.
+
+```{r}
+?matrix
+mt1<-matrix(1:15, nrow = 3,ncol = 5)# bydefault byrow=FASE
+
+mt2<-matrix(16:30,nrow = 3,ncol = 5,byrow = TRUE)#byrow arrange number sequence in matrix in row-wise
+t(mt2) #t function is transpose which means it interchange rows into columns and vice versa. 
+
+```
+
+### **Combine Matrices**
+
+In order to combine two matrices, the **cbind()** function is used which akes two matrices as arguments and produces their combination.When combining matrices, make sure the they have the same number of rows, otherwise an exception is thrown.
+
+```{r}
+?cbind
+cbind(mt1,mt2)# combine both matrix on the basis of column
+
+rbind(mt1,mt2)# combine both matrix on the basis of rows
+```
+
+You can access elements of a matrix using row and column indices.
+
+```{r}
+#accessing thge third row
+mt1[3,]
+#accessing the third column
+mt1[,3]
+#accessing the element in second row and third column
+mt1[2,3]
+```
+
+### **Deconstruction**
+
+This concept allows you to break down the matrix into its original vector, which can come handy in certain situations.
+
+```{r}
+c(mt1) # c function break down matrix into its original vector
+```
+
+## Arrays
+
+An array is similar to a matrix but can have more than two dimensions. You can create an array using the `array()` function.
+
+```{r}
+?array
+ay1<- array(1:20,dim = c(5,2,2))
+print(ay1)
+```
+
+Here, the `dim` argument specifies the dimensions of the array: 3 rows, 2 columns, and 2 layers.
+
+You can access elements of an array using row, column, and layer indices.
+
+```{r}
+#accessing the second row
+ay1[2,,]
+#accessing the elemnet in the first row and first column
+ay1[1,1,]
+#accesssing the element in the fourth row,second column and first layer
+ay1[4,2,1]
+```
+
+## Lists
+
+A list is a collection of elements that can be of different data types. Lists are very versatile because they can contain numbers, strings, vectors, or even other lists.
+
+```{r}
+lt1<-list(name="john",age=12,marks=c(12,16,18,10))
+```
+
+```{r}
+# Accessing elements of a list
+lt1$name
+lt1[["age"]]
+```
